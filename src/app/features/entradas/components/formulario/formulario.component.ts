@@ -2,8 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { Categoria } from "src/app/features/categorias/models/categoria.model";
 import { CategoriaService } from "../../../categorias/service/categoria.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { EntradaService } from '../../service/entradas.service';
-import * as dayjs from 'dayjs';
+import { EntradaService } from "../../service/entradas.service";
+import * as dayjs from "dayjs";
+import { Entrada } from "../../models/entrada.model";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-formulario",
@@ -11,7 +13,7 @@ import * as dayjs from 'dayjs';
   styleUrls: ["./formulario.component.scss"],
 })
 export class FormularioComponent implements OnInit {
-  tiposDeEntradas = ["Receita", "Despesa"];
+  tiposDeEntradas = ["receita", "despesa"];
 
   statusDePagamento = [
     { value: true, descricao: "Pago" },
@@ -21,16 +23,60 @@ export class FormularioComponent implements OnInit {
   categorias: Categoria[] = [];
   // inicializando formulario de entrada para editar e criar
   formEntradas!: FormGroup;
+  rota: string = "";
+  id: string = "";
+
+  entrada!: Entrada;
 
   // [injecao de dependencias] utilizando servico de outro modulo
   constructor(
     private readonly CategoriaService: CategoriaService,
     private readonly entradaService: EntradaService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
     this.criarFormulario();
     this.buscarCategorias();
+
+    this.rota = this.activatedRoute.snapshot.url[0].path;
+
+    if (this.rota === "editar") {
+      this.id = this.activatedRoute.snapshot.url[1].path;
+
+      this.buscarEntradaPeloId();
+    }
+  }
+
+  buscarEntradaPeloId() {
+    this.entradaService
+      .getEntradasPeloId(+this.id)
+      .subscribe((entrada: Entrada) => {
+        this.entrada = entrada;
+
+        const data = this.entrada.data.split("-");
+
+        this.formEntradas.controls["nome"].setValue(this.entrada.nome);
+        this.formEntradas.controls["valor"].setValue(this.entrada.valor);
+        this.formEntradas.controls["categoriaId"].setValue(
+          this.entrada.categoriaId
+        );
+        this.formEntradas.controls["pago"].setValue(this.entrada.pago);
+        this.formEntradas.controls["tipo"].setValue(this.entrada.tipo);
+        this.formEntradas.controls["data"].setValue(new Date(+data[2], +data[1] - 1, +data[0]));
+
+
+        // default
+        // this.formEntradas.controls["data"].setValue(this.entrada.data);
+
+        // 2 try ( do jeito dele)
+        // this.formEntradas.controls["data"].setValue(new Date(+data[2],+data[1],+data[0]));
+
+        // meu jeito, funciona mas puxando data atual
+        // this.formEntradas.controls["data"].setValuenew Date(+data[2], +data[1] - 1, +data[0]);
+        
+      });
   }
 
   buscarCategorias() {
@@ -52,14 +98,26 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  salvarEntrada(){
+  salvarEntrada() {
     //utilizando dayjs para formatar data
-    const data = dayjs(this.formEntradas.controls['data'].value).format('DD/MM/YYYY');
-    this.formEntradas.controls['data'].setValue(data);
+    const data = dayjs(this.formEntradas.controls["data"].value).format(
+      "DD/MM/YYYY"
+    );
 
-    this.entradaService.criarEntrada(this.formEntradas.getRawValue())
-    .subscribe(resposta =>{
-      console.log('ok');
-    })
+    const payloadRequest: Entrada = Object.assign(
+      "",
+      this.formEntradas.getRawValue()
+    );
+
+    payloadRequest.data = data;
+
+    const payload: Entrada = {
+      nome: payloadRequest.nome,
+      categoriaId: payloadRequest.categoriaId,
+      data: payloadRequest.data,
+      pago: payloadRequest.pago,
+      tipo: payloadRequest.tipo,
+      valor: payloadRequest.valor,
+    };
   }
 }
