@@ -148,6 +148,24 @@
       "data": "28/04/2023",
       "valor": 30,
       "tipo": "despesa"
+    },
+    {
+      "nome": "adsa",
+      "valor": "123",
+      "categoriaId": "",
+      "pago": true,
+      "tipo": "Despesa",
+      "data": "2023-09-08T20:31:11.957Z",
+      "id": 56
+    },
+    {
+      "nome": "adsa",
+      "valor": "123",
+      "categoriaId": 2,
+      "pago": true,
+      "tipo": "Despesa",
+      "data": "2023-09-08T20:31:11.957Z",
+      "id": 57
     }
   ]
 }

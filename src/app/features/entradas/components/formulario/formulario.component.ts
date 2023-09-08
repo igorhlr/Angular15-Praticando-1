@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Categoria } from "src/app/features/categorias/models/categoria.model";
 import { CategoriaService } from "../../../categorias/service/categoria.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { EntradaService } from '../../service/entradas.service';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: "app-formulario",
@@ -23,6 +25,7 @@ export class FormularioComponent implements OnInit {
   // [injecao de dependencias] utilizando servico de outro modulo
   constructor(
     private readonly CategoriaService: CategoriaService,
+    private readonly entradaService: EntradaService,
     private formBuilder: FormBuilder
   ) {}
   ngOnInit(): void {
@@ -47,5 +50,16 @@ export class FormularioComponent implements OnInit {
       tipo: ["Despesa", Validators.required],
       data: [new Date(), Validators.required],
     });
+  }
+
+  salvarEntrada(){
+    //utilizando dayjs para formatar data
+    const data = dayjs(this.formEntradas.controls['data'].value).format('DD/MM/YYYY');
+    this.formEntradas.controls['data'].setValue(data);
+
+    this.entradaService.criarEntrada(this.formEntradas.getRawValue())
+    .subscribe(resposta =>{
+      console.log('ok');
+    })
   }
 }
