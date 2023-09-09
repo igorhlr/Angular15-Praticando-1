@@ -33,22 +33,22 @@
   ],
   "entradas": [
     {
-      "id": 1,
       "nome": "Gás de Cozinha",
       "categoriaId": 1,
+      "data": "09-09-2023",
       "pago": true,
-      "data": "14/03/2023",
-      "valor": 70.8,
-      "tipo": "despesa"
+      "tipo": "despesa",
+      "valor": "500",
+      "id": 1
     },
     {
-      "id": 2,
       "nome": "Mercado",
       "categoriaId": 2,
+      "data": "14-03-2023",
       "pago": false,
-      "data": "14/03/2023",
+      "tipo": "despesa",
       "valor": 15,
-      "tipo": "despesa"
+      "id": 2
     },
     {
       "id": 3,
@@ -184,6 +184,78 @@
       "tipo": "despesa",
       "valor": 70.8,
       "id": 59
+    },
+    {
+      "nome": "Uber",
+      "categoriaId": 2,
+      "data": "17-03-2023",
+      "pago": true,
+      "tipo": "despesa",
+      "valor": 30,
+      "id": 60
+    },
+    {
+      "nome": "dasd",
+      "categoriaId": 2,
+      "data": "09-09-2023",
+      "pago": true,
+      "tipo": "receita",
+      "valor": "123",
+      "id": 61
+    },
+    {
+      "nome": "Mercado",
+      "categoriaId": 2,
+      "data": "14-03-2023",
+      "pago": false,
+      "tipo": "despesa",
+      "valor": "159",
+      "id": 62
+    },
+    {
+      "nome": "TESTE01",
+      "categoriaId": 1,
+      "data": "09-09-2023",
+      "pago": true,
+      "tipo": "receita",
+      "valor": "8999999",
+      "id": 63
+    },
+    {
+      "nome": "Salário na Empresa X",
+      "categoriaId": 4,
+      "data": "15-03-2023",
+      "pago": true,
+      "tipo": "receita",
+      "valor": "4405.4944",
+      "id": 64
+    },
+    {
+      "nome": "Salário na Empresa X",
+      "categoriaId": 4,
+      "data": "15-03-2023",
+      "pago": true,
+      "tipo": "receita",
+      "valor": "4405.50",
+      "id": 65
+    },
+    {
+      "nome": "Salário na Empresa X",
+      "categoriaId": 4,
+      "data": "15-03-2023",
+      "pago": true,
+      "tipo": "receita",
+      "valor": "99",
+      "id": 66
+    },
+    {
+      "nome": "abc",
+      "categoriaId": 1,
+      "data": "09-09-2023",
+      "pago": true,
+      "tipo": "receita",
+      "valor": "123",
+      "id": 67
     }
   ]
 }

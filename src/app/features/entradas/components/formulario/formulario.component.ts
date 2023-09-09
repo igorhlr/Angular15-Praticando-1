@@ -26,10 +26,10 @@ export class FormularioComponent implements OnInit {
   rota: string = "";
   id: string = "";
   entrada!: Entrada;
-
+  estaCriando: boolean = false;
 
   categorias$ = this.categoriaService.getCategorias();
-data: any;
+  data: any;
 
   // [injecao de dependencias] utilizando servico de outro modulo
   constructor(
@@ -40,7 +40,6 @@ data: any;
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    
     this.criarFormulario();
     this.buscarCategorias();
 
@@ -50,40 +49,39 @@ data: any;
       this.id = this.activatedRoute.snapshot.url[1].path;
 
       this.buscarEntradaPeloId();
+    }else{
+      this.estaCriando = true;
     }
   }
 
-  buscarEntradaPeloId(){
-    this.entradaService.getEntradasPeloId(+this.id)
-    .subscribe((entrada: Entrada) => {
-      this.entrada = entrada;
+  buscarEntradaPeloId() {
+    this.entradaService
+      .getEntradasPeloId(+this.id)
+      .subscribe((entrada: Entrada) => {
+        this.entrada = entrada;
 
-      // const data = this.entrada.data.split('-');
-      const data = this.entrada.data.split('/');
+        // const data = this.entrada.data.split('-');
+        const data = this.entrada.data.split("/");
 
-      this.formEntradas.controls['nome'].setValue(this.entrada.nome);
-      this.formEntradas.controls['valor'].setValue(this.entrada.valor);
-      this.formEntradas.controls['categoriaId'].setValue(this.entrada.categoriaId);
-      this.formEntradas.controls['pago'].setValue(this.entrada.pago);
-      this.formEntradas.controls['tipo'].setValue(this.entrada.tipo);
-      this.formEntradas.controls['data'].setValue(new Date(+data[2], +data[1], +data[0]));
-
-
-      // this.formEntradas.controls['data'].setValue(new Date(+data[2], +data[1] -1, +data[0]));
-      
-      console.log(data);
-      console.log(this.formEntradas.controls['data'].setValue(new Date(+data[2], +data[1] -1, +data[0])));
-      console.log(data[2],data[1],data[0]);
-      console.log(+data[2],+data[1],+data[0]);
-    });
+        this.formEntradas.controls["nome"].setValue(this.entrada.nome);
+        this.formEntradas.controls["valor"].setValue(this.entrada.valor);
+        this.formEntradas.controls["categoriaId"].setValue(
+          this.entrada.categoriaId
+        );
+        this.formEntradas.controls["pago"].setValue(this.entrada.pago);
+        this.formEntradas.controls["tipo"].setValue(this.entrada.tipo);
+        this.formEntradas.controls["data"].setValue(
+          new Date(+data[2], +data[1] - 1, +data[0])
+        );
+      });
   }
 
   buscarCategorias() {
-    this.categoriaService.getCategorias().subscribe(
-      (categorias: Categoria[]) => {
+    this.categoriaService
+      .getCategorias()
+      .subscribe((categorias: Categoria[]) => {
         this.categorias = categorias;
-      }
-    );
+      });
   }
 
   criarFormulario() {
@@ -99,10 +97,12 @@ data: any;
 
   salvarEntrada() {
     //utilizando dayjs para formatar data
-    const data = dayjs(this.formEntradas.controls['data'].value).format('DD-MM-YYYY');
+    const data = dayjs(this.formEntradas.controls["data"].value).format(
+      "DD-MM-YYYY"
+    );
 
     const payloadRequest: Entrada = Object.assign(
-      '',
+      "",
       this.formEntradas.getRawValue()
     );
 
@@ -117,8 +117,29 @@ data: any;
       valor: payloadRequest.valor,
     };
 
+    if (this.estaCriando) {
+      this.criarNovaEntrada(payload);
+    } else {
+      payload.id = this.entrada.id;
+      this.editarEntrada(payload);
+    }
+  }
+
+  criarNovaEntrada(payload: Entrada) {
     this.entradaService.criarEntrada(payload).subscribe((reposta) => {
       console.log("ok");
+      this.redirecionar();
     });
+  }
+
+  editarEntrada(payload: Entrada) {
+    this.entradaService.editarEntrada(payload).subscribe((reposta) => {
+      console.log("ok");
+      this.redirecionar();
+    });
+  }
+
+  redirecionar() {
+    this.router.navigate(["entradas"]);
   }
 }
