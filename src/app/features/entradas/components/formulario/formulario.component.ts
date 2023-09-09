@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Categoria } from "src/app/features/categorias/models/categoria.model";
 import { CategoriaService } from "../../../categorias/service/categoria.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { EntradaService } from "../../service/entradas.service";
+import { EntradasService } from "../../service/entradas.service";
 import * as dayjs from "dayjs";
 import { Entrada } from "../../models/entrada.model";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -25,18 +25,22 @@ export class FormularioComponent implements OnInit {
   formEntradas!: FormGroup;
   rota: string = "";
   id: string = "";
-
   entrada!: Entrada;
+
+
+  categorias$ = this.categoriaService.getCategorias();
+data: any;
 
   // [injecao de dependencias] utilizando servico de outro modulo
   constructor(
-    private readonly CategoriaService: CategoriaService,
-    private readonly entradaService: EntradaService,
+    private readonly categoriaService: CategoriaService,
+    private readonly entradaService: EntradasService,
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
+    
     this.criarFormulario();
     this.buscarCategorias();
 
@@ -49,38 +53,33 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-  buscarEntradaPeloId() {
-    this.entradaService
-      .getEntradasPeloId(+this.id)
-      .subscribe((entrada: Entrada) => {
-        this.entrada = entrada;
+  buscarEntradaPeloId(){
+    this.entradaService.getEntradasPeloId(+this.id)
+    .subscribe((entrada: Entrada) => {
+      this.entrada = entrada;
 
-        const data = this.entrada.data.split("-");
+      // const data = this.entrada.data.split('-');
+      const data = this.entrada.data.split('/');
 
-        this.formEntradas.controls["nome"].setValue(this.entrada.nome);
-        this.formEntradas.controls["valor"].setValue(this.entrada.valor);
-        this.formEntradas.controls["categoriaId"].setValue(
-          this.entrada.categoriaId
-        );
-        this.formEntradas.controls["pago"].setValue(this.entrada.pago);
-        this.formEntradas.controls["tipo"].setValue(this.entrada.tipo);
-        this.formEntradas.controls["data"].setValue(new Date(+data[2], +data[1] - 1, +data[0]));
+      this.formEntradas.controls['nome'].setValue(this.entrada.nome);
+      this.formEntradas.controls['valor'].setValue(this.entrada.valor);
+      this.formEntradas.controls['categoriaId'].setValue(this.entrada.categoriaId);
+      this.formEntradas.controls['pago'].setValue(this.entrada.pago);
+      this.formEntradas.controls['tipo'].setValue(this.entrada.tipo);
+      this.formEntradas.controls['data'].setValue(new Date(+data[2], +data[1], +data[0]));
 
 
-        // default
-        // this.formEntradas.controls["data"].setValue(this.entrada.data);
-
-        // 2 try ( do jeito dele)
-        // this.formEntradas.controls["data"].setValue(new Date(+data[2],+data[1],+data[0]));
-
-        // meu jeito, funciona mas puxando data atual
-        // this.formEntradas.controls["data"].setValuenew Date(+data[2], +data[1] - 1, +data[0]);
-        
-      });
+      // this.formEntradas.controls['data'].setValue(new Date(+data[2], +data[1] -1, +data[0]));
+      
+      console.log(data);
+      console.log(this.formEntradas.controls['data'].setValue(new Date(+data[2], +data[1] -1, +data[0])));
+      console.log(data[2],data[1],data[0]);
+      console.log(+data[2],+data[1],+data[0]);
+    });
   }
 
   buscarCategorias() {
-    this.CategoriaService.getCategorias().subscribe(
+    this.categoriaService.getCategorias().subscribe(
       (categorias: Categoria[]) => {
         this.categorias = categorias;
       }
@@ -100,12 +99,10 @@ export class FormularioComponent implements OnInit {
 
   salvarEntrada() {
     //utilizando dayjs para formatar data
-    const data = dayjs(this.formEntradas.controls["data"].value).format(
-      "DD/MM/YYYY"
-    );
+    const data = dayjs(this.formEntradas.controls['data'].value).format('DD-MM-YYYY');
 
     const payloadRequest: Entrada = Object.assign(
-      "",
+      '',
       this.formEntradas.getRawValue()
     );
 
@@ -119,5 +116,9 @@ export class FormularioComponent implements OnInit {
       tipo: payloadRequest.tipo,
       valor: payloadRequest.valor,
     };
+
+    this.entradaService.criarEntrada(payload).subscribe((reposta) => {
+      console.log("ok");
+    });
   }
 }

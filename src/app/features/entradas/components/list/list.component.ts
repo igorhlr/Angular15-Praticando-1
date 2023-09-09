@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Entrada } from '../../models/entrada.model';
 import { MatPaginator } from '@angular/material/paginator';
-import { EntradaService } from '../../service/entradas.service';
+import { EntradasService } from '../../service/entradas.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ export class ListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private entradaService: EntradaService,
+  constructor(private entradaService: EntradasService,
     private router: Router){
 
   }

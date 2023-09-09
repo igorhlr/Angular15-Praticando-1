@@ -49,12 +49,23 @@
       </mat-select>
     </mat-form-field>
 
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Data de Pagamento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="data" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field> -->
+
     <mat-form-field appearance="fill">
       <mat-label>Data de Pagamento</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="data">
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  
   </form>
 
   <button mat-raised-button color="primary" (click)="salvarEntrada()">

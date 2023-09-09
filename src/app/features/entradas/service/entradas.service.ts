@@ -6,7 +6,7 @@ import { Entrada } from "../models/entrada.model";
 @Injectable({
   providedIn: "root",
 })
-export class EntradaService extends HttpBaseService {
+export class EntradasService extends HttpBaseService {
   private endpoint = "entradas";
 
   constructor(protected override readonly injector: Injector) {

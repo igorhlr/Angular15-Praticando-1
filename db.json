@@ -166,6 +166,24 @@
       "tipo": "Despesa",
       "data": "2023-09-08T20:31:11.957Z",
       "id": 57
+    },
+    {
+      "nome": "Gás de Cozinha",
+      "categoriaId": 1,
+      "data": "Invalid Date",
+      "pago": true,
+      "tipo": "despesa",
+      "valor": 70.8,
+      "id": 58
+    },
+    {
+      "nome": "Gás de Cozinha",
+      "categoriaId": 1,
+      "data": "Invalid Date",
+      "pago": true,
+      "tipo": "despesa",
+      "valor": 70.8,
+      "id": 59
     }
   ]
 }
