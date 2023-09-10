@@ -27,7 +27,8 @@ export class FormularioComponent implements OnInit {
   id: string = "";
   entrada!: Entrada;
   estaCriando: boolean = false;
-
+  //toda vez que usamos $ depois da variavel
+  //estamos setando um observable
   categorias$ = this.categoriaService.getCategorias();
   data: any;
 
@@ -41,7 +42,7 @@ export class FormularioComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.criarFormulario();
-    this.buscarCategorias();
+    // this.buscarCategorias();
 
     this.rota = this.activatedRoute.snapshot.url[0].path;
 
@@ -53,7 +54,8 @@ export class FormularioComponent implements OnInit {
       this.estaCriando = true;
     }
   }
-
+//toda vez que fizemos uma subinscricao como essa 
+//temos que usar o unbscribe  --> iremos utilizar o mais usual ngOnDestroy
   buscarEntradaPeloId() {
     this.entradaService
       .getEntradasPeloId(+this.id)
@@ -77,13 +79,13 @@ export class FormularioComponent implements OnInit {
       console.log(this.data);
   }
 
-  buscarCategorias() {
-    this.categoriaService
-      .getCategorias()
-      .subscribe((categorias: Categoria[]) => {
-        this.categorias = categorias;
-      });
-  }
+  // buscarCategorias() {
+  //   this.categoriaService
+  //     .getCategorias()
+  //     .subscribe((categorias: Categoria[]) => {
+  //       this.categorias = categorias;
+  //     });
+  // }
 
   criarFormulario() {
     this.formEntradas = this.formBuilder.group({
@@ -143,4 +145,6 @@ export class FormularioComponent implements OnInit {
   redirecionar() {
     this.router.navigate(["entradas"]);
   }
+
+  
 }

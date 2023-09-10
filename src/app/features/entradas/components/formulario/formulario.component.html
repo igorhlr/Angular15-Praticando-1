@@ -22,7 +22,9 @@
     <mat-form-field appearance="fill">
       <mat-label>Categoria</mat-label>
       <mat-select formControlName="categoriaId">
-        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+        <!-- essa pipe async vai fazer o observable$ funcionar aqui  -->
+        <!-- muito utilizado para quando nao houver tratamento nos dados (fica mais rapido e facil de escrever) -->
+        <mat-option *ngFor="let categoria of categorias$ | async" [value]="categoria.id">
           {{ categoria.nome }}
         </mat-option>
       </mat-select>
