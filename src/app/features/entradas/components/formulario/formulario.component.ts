@@ -60,8 +60,8 @@ export class FormularioComponent implements OnInit {
       .subscribe((entrada: Entrada) => {
         this.entrada = entrada;
 
-        // const data = this.entrada.data.split('-');
-        const data = this.entrada.data.split("/");
+        const data = this.entrada.data.split('-');
+        // const data = this.entrada.data.split("/");
 
         this.formEntradas.controls["nome"].setValue(this.entrada.nome);
         this.formEntradas.controls["valor"].setValue(this.entrada.valor);
@@ -71,9 +71,10 @@ export class FormularioComponent implements OnInit {
         this.formEntradas.controls["pago"].setValue(this.entrada.pago);
         this.formEntradas.controls["tipo"].setValue(this.entrada.tipo);
         this.formEntradas.controls["data"].setValue(
-          new Date(+data[2], +data[1] - 1, +data[0])
+          new Date(+data[2], +data[1] -1, +data[0])
         );
       });
+      console.log(this.data);
   }
 
   buscarCategorias() {
