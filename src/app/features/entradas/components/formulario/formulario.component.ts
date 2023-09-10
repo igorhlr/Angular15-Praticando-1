@@ -62,7 +62,7 @@ export class FormularioComponent implements OnInit {
       .subscribe((entrada: Entrada) => {
         this.entrada = entrada;
 
-        const data = this.entrada.data.split('-');
+        const data = this.entrada.data.split('-'); 
         // const data = this.entrada.data.split("/");
 
         this.formEntradas.controls["nome"].setValue(this.entrada.nome);
@@ -146,5 +146,9 @@ export class FormularioComponent implements OnInit {
     this.router.navigate(["entradas"]);
   }
 
-  
+  ngOnDestroy(){
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    
+  }
 }
