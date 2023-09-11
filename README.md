@@ -1,27 +1,90 @@
-# MinhasFinancas
+# Projeto Finanças
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5.
+---
 
-## Development server
+## Escopo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Criar um projeto Angular 15, utilizando a abordagem SPA com as seguintes funcionalidades:
 
-## Code scaffolding
+- Construir a estrutura do projeto utilizando o npm (gerenciador de pacotes do Node.js);
+- Criar uma pagina de cadastro de finanças com funcionalidade de filtro por mes e ano.
+- Criar duas rotas, categorias e gastos cadastrados, através de uma lista customizavel.
+- Criar a rota linkando uma página a outra (Adicionar Categoria e Adicionar Entrada), sincronizada calculando de acordo com mes e ano selecionado.
+- Implementar o consumo da API disponibilizadas, através dos dois endpoints:
+    - API de Categorias
+    - API de Entradas
+- Criar um design básico para páginas (pode ser utilizado o
+bibliotecas/frameworks como bootstrap ou material-UI design disponíveis
+no repositório do npm)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Tecnologias
 
-## Build
+- Angular CLI 15.2.5
+- Node.js 18.17.1
+- JSON Server
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Como instalar
 
-## Running unit tests
+- Baixe ou clone este repositório usando
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```powershell
+git clone https://github.com/igorhlr/Angular15-Praticando-1.git
+```
 
-## Running end-to-end tests
+- Dentro do diretório, instale as dependências usando
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```powershell
+npm install
+```
 
-## Further help
+- Dentro do diretório, Execute o db.json
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```powershell
+npm i json-server
+```
+
+## Como executar
+
+Execute para executar a versão de desenvolvimento. 
+
+```powershell
+ng serve 
+```
+
+Depois acesse `http://localhost:4200/`.
+
+Para executar o servidor de endpoints de API, em um outro terminal na mesma pasta execute:
+
+```powershell
+json-server --watch db.json
+```
+
+A API poderá ser acessada via `http://localhost:3000/`.
+
+## Como compilar/construir
+
+Execute, para buildar o projeto. Para buildar a versão de produção adicione a flag `--prod`. Os arquivos serão armazenados do diretório `dist`.
+
+```powershell
+ ng build 
+```
+
+## Dúvidas
+
+Caso há alguma dúvida em relação a este repositório, envie para igorhlr3@hotmail.com
+
+---
+
+## Dashboard
+
+![Untitled](/dashboard.png)
+
+## Categorias
+
+![Untitled](/categorias.png)
+
+## Entradas
+
+![Untitled](/entradas.png)
+
+---
