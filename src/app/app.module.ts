@@ -11,6 +11,9 @@ import { MaterialModule } from './shared/material/material.module';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+// import { LoginComponent } from './commom/auth/components/login/login.component';
+// import { CadastroComponent } from './commom/auth/components/cadastro/cadastro.component';
+
 
 registerLocaleData(localePt);
 
@@ -19,6 +22,8 @@ registerLocaleData(localePt);
   declarations: [
     AppComponent,
     ToolbarComponent,
+    // LoginComponent,
+    // CadastroComponent,
   ],
   imports: [
     BrowserModule,
