@@ -12,7 +12,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { AuthGuard } from './commom/auth.guard';
-// import { AuthInterceptor } from './commom/auth/'
+import { AuthInterceptor } from './commom/auth.interceptor';
 
 
 registerLocaleData(localePt);
@@ -34,6 +34,7 @@ registerLocaleData(localePt);
   ],
   providers: [
     AuthGuard,
+    { provide : HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: LOCALE_ID,
       useValue: 'pt-PT'
