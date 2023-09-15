@@ -76,6 +76,7 @@ export class FormularioComponent implements OnInit {
           new Date(+data[2], +data[1] -1, +data[0])
         );
       });
+
       console.log(this.data);
   }
 
