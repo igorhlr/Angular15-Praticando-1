@@ -16,12 +16,14 @@ Criar um projeto Angular 15, utilizando a abordagem SPA com as seguintes funcion
 - Criar um design básico para páginas (pode ser utilizado o
 bibliotecas/frameworks como bootstrap ou material-UI design disponíveis
 no repositório do npm)
+- Login com interceptor e autorizacoes via token 
 
 ## Tecnologias
 
 - Angular CLI 15.2.5
 - Node.js 18.17.1
 - JSON Server
+- Mockoon
 
 ## Como instalar
 
@@ -78,7 +80,6 @@ Execute, para buildar o projeto. Para buildar a versão de produção adicione a
 ## Login
 
 ![Untitled](/login.png)
-
 
 ## Dashboard
 
